@@ -16,12 +16,19 @@ function App() {
 
     const handleSearch = async () => {
         try {
-            const httpResponse = await axios.get(baseURL);
-            console.log(httpResponse);
+            const httpResponse = await axios.get(
+                `${baseURL}/movies/search?searchTerm=${searchTerm}`,
+            );
+            setMovieList(httpResponse.data);
         } catch (error) {
             console.error("An error occured", error);
         }
     };
+
+    const movieDisplay = movieList.map((movie) => {
+        return <>{movie.name}</>;
+    });
+
     return (
         <div>
             <h1>App component</h1>
@@ -33,6 +40,7 @@ function App() {
                 value={searchTerm}
             />
             <button onClick={handleSearch}>Search</button>
+            {movieDisplay}
         </div>
     );
 }
