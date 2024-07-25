@@ -26,13 +26,17 @@ function App() {
     };
 
     const movieDisplay = movieList.map((movie) => {
-        return <>{movie.name}</>;
+        return (
+            <>
+                <div>{movie.name}</div>
+            </>
+        );
     });
 
     return (
         <div>
-            <h1>App component</h1>
-            <DemonstratingProps />
+            <h1>Test App</h1>
+            {/* <DemonstratingProps /> */}
             <input
                 placeholder="search"
                 onChange={handleSearchInput}
