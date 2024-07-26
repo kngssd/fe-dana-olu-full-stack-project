@@ -1,6 +1,7 @@
 // import { DemonstratingProps } from "./components/demo/DemonstratingProps";
 import React from "react";
 import axios from "axios";
+import MovieCard from "./MovieCard";
 
 // @ts-ignore - supress an error about import.meta
 const baseURL = import.meta.env.VITE_API_BASE_URL;
@@ -8,6 +9,7 @@ const baseURL = import.meta.env.VITE_API_BASE_URL;
 function App() {
     const [searchTerm, setSearchTerm] = React.useState("");
     const [movieList, setMovieList] = React.useState([]);
+    const [movieToDisplay, setMovieToDisplay] = React.useState({});
 
     function handleSearchInput(event) {
         setSearchTerm(event.target.value);
@@ -24,10 +26,16 @@ function App() {
         }
     };
 
+    function handleChooseMovie(event) {
+        console.log(event.target.id);
+    }
+
     const movieDisplay = movieList.map((movie) => {
         return (
             <>
-                <div>{movie.name}</div>
+                <div onClick={handleChooseMovie} id={movie.id}>
+                    {movie.name}
+                </div>
             </>
         );
     });
@@ -36,6 +44,7 @@ function App() {
         <div>
             <h1>Movie App</h1>
             {/* <DemonstratingProps /> */}
+            <MovieCard movieData={movieToDisplay} />
             <input
                 placeholder="search"
                 onChange={handleSearchInput}
