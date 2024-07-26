@@ -1,4 +1,4 @@
-import { DemonstratingProps } from "./components/demo/DemonstratingProps";
+// import { DemonstratingProps } from "./components/demo/DemonstratingProps";
 import React from "react";
 import axios from "axios";
 
@@ -11,7 +11,6 @@ function App() {
 
     function handleSearchInput(event) {
         setSearchTerm(event.target.value);
-        console.log(searchTerm);
     }
 
     const handleSearch = async () => {
@@ -35,7 +34,7 @@ function App() {
 
     return (
         <div>
-            <h1>Test App</h1>
+            <h1>Movie App</h1>
             {/* <DemonstratingProps /> */}
             <input
                 placeholder="search"
