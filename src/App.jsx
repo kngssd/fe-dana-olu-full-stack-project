@@ -27,8 +27,17 @@ function App() {
     };
 
     function handleChooseMovie(event) {
-        console.log(event.target.id);
+        getMovieById(event.target.id);
     }
+
+    const getMovieById = async (id) => {
+        try {
+            const httpResponse = await axios.get(`${baseURL}/movies/${id}`);
+            setMovieToDisplay(httpResponse.data[0]);
+        } catch (error) {
+            console.error("error", error);
+        }
+    };
 
     const movieDisplay = movieList.map((movie) => {
         return (
