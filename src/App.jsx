@@ -52,8 +52,11 @@ function App() {
     return (
         <div>
             <h1>Movie App</h1>
-            {/* <DemonstratingProps /> */}
-            <MovieCard movieData={movieToDisplay} />
+            {movieToDisplay ? (
+                <MovieCard movieData={movieToDisplay} />
+            ) : (
+                <p>Select a movie</p>
+            )}
             <input
                 placeholder="search"
                 onChange={handleSearchInput}
