@@ -27,24 +27,34 @@ function App() {
     };
 
     function handleChooseMovie(event) {
-        console.log(event.target.id);
+        getMovieById(event.target.id);
     }
+
+    const getMovieById = async (id) => {
+        try {
+            const httpResponse = await axios.get(`${baseURL}/movies/${id}`);
+            setMovieToDisplay(httpResponse.data[0]);
+        } catch (error) {
+            console.error("error", error);
+        }
+    };
 
     const movieDisplay = movieList.map((movie) => {
         return (
-            <>
-                <div onClick={handleChooseMovie} id={movie.id}>
-                    {movie.name}
-                </div>
-            </>
+            <div key={movie.id} onClick={handleChooseMovie} id={movie.id}>
+                {movie.name}
+            </div>
         );
     });
 
     return (
         <div>
             <h1>Movie App</h1>
-            {/* <DemonstratingProps /> */}
-            <MovieCard movieData={movieToDisplay} />
+            {movieToDisplay ? (
+                <MovieCard movieData={movieToDisplay} />
+            ) : (
+                <p>Select a movie</p>
+            )}
             <input
                 placeholder="search"
                 onChange={handleSearchInput}
