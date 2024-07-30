@@ -1,3 +1,9 @@
+import PropTypes from "prop-types";
+
+MovieCard.propTypes = {
+    movieData: PropTypes.object.isRequired,
+};
+
 export default function MovieCard(props) {
     return (
         <div>
