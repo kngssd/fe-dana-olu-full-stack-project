@@ -1,7 +1,6 @@
-// import { DemonstratingProps } from "./components/demo/DemonstratingProps";
 import React from "react";
 import axios from "axios";
-import MovieCard from "./MovieCard";
+import MovieCard from "./components/demo/MovieCard";
 
 // @ts-ignore - supress an error about import.meta
 const baseURL = import.meta.env.VITE_API_BASE_URL;
