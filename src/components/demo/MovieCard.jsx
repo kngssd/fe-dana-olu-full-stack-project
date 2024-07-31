@@ -1,10 +1,32 @@
+import axios from "axios";
 import PropTypes from "prop-types";
+import React from "react";
+import { baseURL } from "../../api";
 
 MovieCard.propTypes = {
     movieData: PropTypes.object.isRequired,
 };
 
 export default function MovieCard(props) {
+    const [newComment, setNewComment] = React.useState("");
+
+    const handleCommentInput = (event) => {
+        setNewComment(event.target.value)
+    }
+
+    const handleSubmitComment = () => {
+        console.log(newComment)
+    }
+
+    const postComment = async () => {
+        // try {
+        //     const queryString = `${baseURL}/movies/98411/comments`
+        //     // const httpResponse = await axios.post()
+        // } catch (error) {
+            
+        // }
+    }
+
     return (
         <div>
             <h2>{props.movieData.name}</h2>
@@ -16,6 +38,16 @@ export default function MovieCard(props) {
             {props.movieData.abstract && (
                 <h3>Abstract: {props.movieData.abstract}</h3>
             )}
+
+            <div className="new-comment">
+                <p>Add a comment</p>
+                <textarea 
+                    value={newComment}
+                    onChange={handleCommentInput}
+                
+                />
+                <button onClick={handleSubmitComment}>Submit</button>
+            </div>
         </div>
     );
 }
