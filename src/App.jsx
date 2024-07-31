@@ -41,7 +41,12 @@ function App() {
 
     const movieDisplay = movieList.map((movie) => {
         return (
-            <div key={movie.id} onClick={handleChooseMovie} id={movie.id}>
+            <div
+                key={movie.id}
+                onClick={handleChooseMovie}
+                onKeyDown={handleChooseMovie}
+                id={movie.id}
+            >
                 {movie.name}
             </div>
         );
