@@ -19,12 +19,14 @@ export default function MovieCard(props) {
     }
 
     const postComment = async () => {
-        // try {
-        //     const queryString = `${baseURL}/movies/98411/comments`
-        //     // const httpResponse = await axios.post()
-        // } catch (error) {
-            
-        // }
+        try {
+            const queryString = `${baseURL}/movies/${props.movieData.id}/comments`
+            const httpResponse = await axios.post(queryString, {comment_text: newComment})
+            setNewComment("")
+            alert(`Your comment was successful: ${httpResponse.data}`)
+        } catch (error) {
+            console.error("An error occured", error);
+        }
     }
 
     return (
