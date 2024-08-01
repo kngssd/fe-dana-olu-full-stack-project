@@ -9,6 +9,7 @@ MovieCard.propTypes = {
 
 export default function MovieCard(props) {
     const [newComment, setNewComment] = React.useState("");
+    const hasMovieData = Object.keys(props.movieData).length !== 0;
 
     const handleCommentInput = (event) => {
         setNewComment(event.target.value)
@@ -23,20 +24,19 @@ export default function MovieCard(props) {
             const queryString = `${baseURL}/movies/${props.movieData.id}/comments`
             const httpResponse = await axios.post(queryString, {comment_text: newComment})
             setNewComment("")
-            alert(`Your comment was successful: ${httpResponse.data}`)
         } catch (error) {
             console.error("An error occured", error);
         }
     }
 
-    return (
+    return hasMovieData ?  (
         <div>
             <h2>{props.movieData.name}</h2>
-            <h3>{props.movieData.date}</h3>
+            <h3>Date: {props.movieData.date}</h3>
             {props.movieData.vote_average && (
                 <h3>Rating: {props.movieData.vote_average}/10</h3>
             )}
-            <h3>{props.movieData.runtime}</h3>
+            <h3>Duration: {props.movieData.runtime} minutes</h3>
             {props.movieData.abstract && (
                 <h3>Abstract: {props.movieData.abstract}</h3>
             )}
@@ -51,5 +51,5 @@ export default function MovieCard(props) {
                 <button onClick={handleSubmitComment}>Submit</button>
             </div>
         </div>
-    );
+    ) : (<p>Search a movie</p>);
 }
