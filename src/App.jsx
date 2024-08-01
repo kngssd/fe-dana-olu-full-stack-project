@@ -1,10 +1,7 @@
-// import { DemonstratingProps } from "./components/demo/DemonstratingProps";
 import React from "react";
 import axios from "axios";
-import MovieCard from "./MovieCard";
-
-// @ts-ignore - supress an error about import.meta
-const baseURL = import.meta.env.VITE_API_BASE_URL;
+import MovieCard from "./components/demo/MovieCard";
+import { baseURL } from "./api";
 
 function App() {
     const [searchTerm, setSearchTerm] = React.useState("");
