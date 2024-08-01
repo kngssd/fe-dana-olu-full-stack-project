@@ -10,26 +10,42 @@ MovieCard.propTypes = {
 export default function MovieCard(props) {
     const [newComment, setNewComment] = React.useState("");
     const hasMovieData = Object.keys(props.movieData).length !== 0;
+    const [currentComments, setCurrentComments] = React.useState([]);
 
     const handleCommentInput = (event) => {
-        setNewComment(event.target.value)
-    }
+        setNewComment(event.target.value);
+    };
 
     const handleSubmitComment = () => {
-        console.log(newComment)
-    }
+        postComment();
+    };
 
     const postComment = async () => {
         try {
-            const queryString = `${baseURL}/movies/${props.movieData.id}/comments`
-            const httpResponse = await axios.post(queryString, {comment_text: newComment})
-            setNewComment("")
+            const queryString = `${baseURL}/movies/${props.movieData.id}/comments`;
+            await axios.post(queryString, {
+                comment_text: newComment,
+                author: "anon",
+            });
+            setCurrentComments((prevComments) => {
+                return [newComment, ...prevComments];
+            });
+            setNewComment("");
         } catch (error) {
             console.error("An error occured", error);
         }
-    }
+    };
 
-    return hasMovieData ?  (
+    const tempCommentListElement = currentComments.map((comment) => {
+        return (
+            <div key={comment}>
+                <p>{comment}</p>
+                <p>- anon</p>
+            </div>
+        );
+    });
+
+    return hasMovieData ? (
         <div>
             <h2>{props.movieData.name}</h2>
             <h3>Date: {props.movieData.date}</h3>
@@ -43,13 +59,19 @@ export default function MovieCard(props) {
 
             <div className="new-comment">
                 <p>Add a comment</p>
-                <textarea 
-                    value={newComment}
-                    onChange={handleCommentInput}
-                
-                />
+                <textarea value={newComment} onChange={handleCommentInput} />
                 <button onClick={handleSubmitComment}>Submit</button>
             </div>
+
+            <div>
+                {currentComments.length === 0 ? (
+                    <p>No comments yet</p>
+                ) : (
+                    tempCommentListElement
+                )}
+            </div>
         </div>
-    ) : (<p>Search a movie</p>);
+    ) : (
+        <p>Search a movie</p>
+    );
 }

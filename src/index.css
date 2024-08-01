@@ -43,7 +43,7 @@ button {
     background-color: rgb(228, 177, 110);
 }
 
-.new-comment{
+.new-comment {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
